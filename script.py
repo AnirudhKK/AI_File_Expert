@@ -104,8 +104,11 @@ Examples:
             continue  # ← now valid, inside the loop
 
     # === Try to execute the generated code ===
+    # === Try to execute the generated code ===
     try:
-        exec(generated_code, {'df': df})
+        local_vars = {'df': df}
+        exec(generated_code, {}, local_vars)
+        df = local_vars['df']
         print("✅ Change applied.")
         print("\n📊 Updated DataFrame Preview:\n", df.head())
     except Exception as e:
